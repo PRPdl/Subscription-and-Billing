@@ -37799,6 +37799,9 @@ Vue.component('chat-messages', function () {
 Vue.component('chat-form', function () {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/ChatForm.vue */ "./resources/js/components/ChatForm.vue"));
 });
+Vue.component('user-list', function () {
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/UserList.vue */ "./resources/js/components/UserList.vue"));
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -37808,12 +37811,14 @@ Vue.component('chat-form', function () {
 var app = new Vue({
   el: '#app',
   data: {
-    messages: []
+    messages: [],
+    users: []
   },
   created: function created() {
     var _this = this;
 
     this.fetchMessages();
+    this.fetchUsers();
     Echo["private"]('chat').listen('MessageSent', function (e) {
       _this.messages.push({
         message: e.message.message,
@@ -37825,14 +37830,19 @@ var app = new Vue({
     fetchMessages: function fetchMessages() {
       var _this2 = this;
 
-      Axios.get('/messages').then(function (response) {
+      axios.get('/messages').then(function (response) {
         _this2.messages = response.data;
       });
     },
     addMessage: function addMessage(message) {
       this.messages.push(message);
-      Axios.post('/messages', message).then(function (response) {
-        console.log(response.data);
+      axios.post('/messages', message).then(function (response) {});
+    },
+    fetchUsers: function fetchUsers() {
+      var _this3 = this;
+
+      axios.get('/users').then(function (response) {
+        _this3.users = response.data;
       });
     }
   }
@@ -37858,7 +37868,10 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common = {
+  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+  'X-Requested-With': 'XMLHttpRequest'
+};
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

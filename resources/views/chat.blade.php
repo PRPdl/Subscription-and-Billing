@@ -4,11 +4,11 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Chats</div>
+        <div class="col-md-8 col-md-offset-2 chatBox">
+            <div class="card">
+                <div class="card-header">Chats</div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     <chat-messages :messages="messages"></chat-messages>
                 </div>
                 <div class="panel-footer">
@@ -18,6 +18,14 @@
                     ></chat-form>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4 userView"> 
+                <div class="card">
+                    <div class="card-header"> Users </div>
+                        <div class="card-body">
+                            <user-list :users="users" :auth_user='@json($auth_user)'> </user-list>
+                        </div>
+                </div>
         </div>
     </div>
 </div>

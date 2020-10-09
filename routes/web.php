@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatsController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/chat',[ChatsController::class, 'index']);
+Route::get('/chat',[ChatsController::class, 'index'])->name('chat');
 Route::get('/messages', [ChatsController::class, 'fetchMessage']);
 Route::post('/messages', [ChatsController::class, 'sendMessage']);
+
+Route::get('/users', function(){
+    $users = User::all();
+    return $users;
+});

@@ -18,6 +18,82 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+ div.chatBox {
+    padding-right: 0px;
+  }
+
+.chat {
+    list-style:none ;
+    margin: 0;
+    padding: 0;
+  }
+
+  .chat li {
+    margin-bottom: 10px;
+    
+  }
+
+  div.userView {
+    padding-left: 0px;
+
+  }
+
+  .chat li .chat-body p {
+    margin: 0;
+    color: #777777;
+  }
+
+  .panel-body {
+    overflow-y: scroll;
+    height: 350px;
+    border: red solid 2px;
+  }
+
+  h5.user-name {
+    margin-bottom: 0px
+  }
+
+  p.text-message {
+    padding-left: 50px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+  }
+  button#btn-chat {
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+  }
+
+            [userName]:before {
+  content:attr(userName);
+  display:inline-block;
+  font-size:1em;
+  width:2.5em;
+  height:2.5em;
+  line-height:2.5em;
+  text-align:center;
+  border-radius:50%;
+  background:plum;
+  vertical-align:middle;
+  margin-right:1em;
+  color:white;
+  }
+
+  </style>
 </head>
 <body>
     <div id="app">
@@ -37,7 +113,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -49,6 +125,10 @@
                                 </li>
                             @endif
                         @else
+                        <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                             <a class="nav-link" href={{  route('chat') }}> Chat <span class="sr-only"> (current) </span> </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -66,6 +146,7 @@
                                     </form>
                                 </div>
                             </li>
+                        </ul>
                         @endguest
                     </ul>
                 </div>

@@ -26,8 +26,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages']
+  props: ['messages'],
+  data: function data() {
+    return {
+      showLess: true
+    };
+  },
+  methods: {
+    avatar: function avatar(name) {
+      return name.charAt(0);
+    }
+  },
+  computed: {
+    messagesToDisplay: function messagesToDisplay() {
+      if (this.showLess) {
+        return this.messages.slice(-5);
+      } else {
+        return this.messages;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -47,32 +75,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "ul",
-    { staticClass: "chat" },
-    _vm._l(_vm.messages, function(message) {
-      return _c("li", { staticClass: "left clearfix" }, [
-        _c("div", { staticClass: "chat-body clearfix" }, [
-          _c("div", { staticClass: "header" }, [
-            _c("strong", { staticClass: "primary-font" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(message.user.name) +
-                  "\n                "
-              )
+  return _c("div", [
+    _c(
+      "ul",
+      { staticClass: "chat" },
+      _vm._l(_vm.messagesToDisplay, function(message) {
+        return _c("li", { staticClass: "left clearfix" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "card-title user-name",
+                  attrs: { userName: _vm.avatar(message.user.name) }
+                },
+                [_c("strong", [_vm._v("  " + _vm._s(message.user.name) + " ")])]
+              ),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text text-message" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(message.message) +
+                    "\n                "
+                )
+              ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                " + _vm._s(message.message) + "\n            "
-            )
           ])
         ])
-      ])
-    }),
-    0
-  )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            _vm.showLess = !_vm.showLess
+          }
+        }
+      },
+      [
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm.showLess === true ? "Show All" : "Show Less") +
+            "\n    "
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

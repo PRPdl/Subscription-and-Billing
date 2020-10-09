@@ -17,7 +17,7 @@ class ChatsController extends Controller
     //Show chats
 
     public function index(){
-        return view('chat');
+        return view('chat')->with('auth_user', auth()->user());
     }
 
     //Fetch Messages
